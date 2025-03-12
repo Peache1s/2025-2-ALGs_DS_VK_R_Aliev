@@ -207,10 +207,18 @@ def merge_linked_lists(lst1, lst2):
         else:
             curr_res_list = curr_res_list.next
 
-    if curr1 is not None:
+    if curr1 is not None and counter > 0:
         curr_res_list.next = curr1
 
-    elif curr2 is not None:
+    elif curr2 is not None and counter > 0:
         curr_res_list.next = curr2
+
+    elif curr2 is not None and counter == 0:
+        return lst2
+
+    elif curr1 is not None and counter == 0:
+        return lst1
+    else:
+        return LinkedList()
 
     return res_list

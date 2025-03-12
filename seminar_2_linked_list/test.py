@@ -79,14 +79,17 @@ class TestFunctions:
     @pytest.mark.parametrize('str, expected', [('aba', True),
                                                ('abba', True),
                                                ('abc', False),
-                                               ('abcc', False)])
+                                               ('abcc', False),
+                                               ])
     def test_is_palindrome(self, str, expected):
         assert is_palindrome_stack(str) == expected
         assert is_palindrome_deque(str) == expected
         assert is_palindrome_two_pointers(str) == expected
 
     def test_merge_linked_lists(self):
-        input_values_1 = [random.randint(1, 10) for _ in range(10)]
+
+        len1 = random.randint(1, 15)
+        input_values_1 = [random.randint(1, 10) for _ in range(len1)]
         input_values_2 = [random.randint(1, 10) for _ in range(10)]
 
         expected_values = sorted(input_values_2 + input_values_1)
@@ -96,17 +99,14 @@ class TestFunctions:
         expected_lst = LinkedList()
 
         for i in range(10):
-            lst1.append_front(input_values_1[i])
             lst2.append_front(input_values_2[i])
-        for i in range(20):
+
+        for i in range(len1):
+            lst1.append_front(input_values_1[i])
+
+        for i in range(10 + len1):
             expected_lst.append_front(expected_values[i])
 
         assert merge_linked_lists(lst1, lst2).display() == expected_lst.display()
-
-
-
-
-
-
-
-
+        assert merge_linked_lists(LinkedList(), lst2)
+        assert merge_linked_lists(lst1, LinkedList())
